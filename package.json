@@ -1,7 +1,7 @@
 {
     "name": "simple-express-snippets",
     "displayName": "Simple Express Snippets",
-    "version": "1.0.2",
+    "version": "1.0.5",
     "publisher": "raxraj",
     "description": "This extension provides help in creating your express application by providing you simple snippets.",
     "author": {
@@ -13,8 +13,12 @@
     "contributes": {
         "snippets": [
             {
-                "language": "javscript,typescript",
-                "path": "./snippets/snippets.code-snippets"
+                "language": "javascript",
+                "path": "./snippets/snippets.json"
+            },
+            {
+                "language": "typescript",
+                "path": "./snippets/snippets.json"
             }
         ]
     },
@@ -29,6 +33,9 @@
     "license": "MIT",
     "repository": {
         "url": "https://ww.github.com/raxraj/simple-express-snippets"
+    },
+    "scripts": {
+        "postinstall": "node ./node_modules/vscode/bin/install"
     },
     "keywords": [
         "simple express snippets",
