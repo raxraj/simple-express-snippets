@@ -1,7 +1,7 @@
 {
     "name": "simple-express-snippets",
     "displayName": "Simple Express Snippets",
-    "version": "1.0.7",
+    "version": "1.1.0",
     "publisher": "raxraj",
     "description": "This extension provides help in creating your express application by providing you simple snippets.",
     "author": {
@@ -14,11 +14,11 @@
         "snippets": [
             {
                 "language": "javascript",
-                "path": "./snippets/snippets.json"
+                "path": "./snippets/jssnippets.json"
             },
             {
                 "language": "typescript",
-                "path": "./snippets/snippets.json"
+                "path": "./snippets/tssnippets.json"
             }
         ]
     },

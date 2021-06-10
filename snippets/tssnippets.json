@@ -1,9 +1,9 @@
 {
 	"Express simple server Setup": {
-		"scope": "javascript,typescript",
+		"scope": "typescript",
 		"prefix": "ess",
 		"body": [
-			"const express = require('express')",
+			"import express from 'express';",
 			"",
 			"const ${1:app} = express()",
 			"",
@@ -12,54 +12,54 @@
 		"description": "Setup a simple Express Server"
 	},
 	"Express URL encoded": {
-		"scope": "javascript,typescript",
+		"scope": "typescript",
 		"prefix": "eue",
 		"body": "${1:app}.use(express.urlencoded({ extended: false }));",
 		"description": "Use URL Encoded in Express."
 	},
 	"Express set to use json": {
-		"scope": "javascript,typescript",
+		"scope": "typescript",
 		"prefix": "ejson",
 		"body": "${1:app}.use(express.json())",
 		"description": "Set Express to use json parsing for request.body"
 	},
 	"Express set the static folder": {
-		"scope": "javascript,typescript",
+		"scope": "typescript",
 		"prefix": "estatic",
 		"body": "${1:app}.use(express.static('${2:public}'))",
 		"description": "Set Express to use given folder name as static"
 	},
 	"Express simple router": {
-		"scope": "javascript,typescript",
+		"scope": "typescript",
 		"prefix": "esrouter",
 		"body": [
-			"const express = require('express')",
+			"import express from 'express'",
 			"const router = express.Router()",
 			"$0",
-			"module.exports = router"
+			"export default router"
 		],
 		"description": "Create a simple router object."
 	},
 	"Express router get request": {
-		"scope": "javascript, typescript",
+		"scope": "typescript",
 		"prefix": "ergr",
 		"body": "router.get('$2', (request,response) => {\n\t $0\n})",
 		"description": "A router based get route"
 	},
 	"Express router post request": {
-		"scope": "javascript, typescript",
+		"scope": "typescript",
 		"prefix": "erpr",
 		"body": "router.post('$2', (request,response) => {\n\t $0\n})",
 		"description": "A router based post route"
 	},
 	"Express simple get request": {
-		"scope": "javascript,typescript",
+		"scope": "typescript",
 		"prefix": "esgr",
 		"body": "${1:app}.get('/$2', (request, response) => {\n\t $0\n})",
 		"description": "A simple get route for Express"
 	},
 	"Express simple Post request": {
-		"scope": "javascript,typescript",
+		"scope": "typescript",
 		"prefix": "espr",
 		"body": "${1:app}.post('/$2', (request, response) => {\n\t $0\n})",
 		"description": "A simple post route for Express"

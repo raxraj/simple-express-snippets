@@ -32,6 +32,8 @@ that work the way that you would expect, not just a copy of the documentation.
 
 ```javascript
 const express = require("express");
+// In typescript
+// import express from 'express';
 
 const app = express();
 
@@ -62,9 +64,13 @@ app.use(express.static("public"));
 
 ```javascript
 const express = require("express");
+// In typescript
+// import express from 'express';
 const router = express.Router();
 
 module.exports = router;
+// In typescript
+// export default router;
 ```
 
 ### ergr - A router based get route
