@@ -1,9 +1,9 @@
 {
     "name": "simple-express-snippets",
     "displayName": "Simple Express Snippets",
-    "version": "1.1.0",
+    "version": "2.0.0",
     "publisher": "raxraj",
-    "description": "This extension provides help in creating your express application by providing you simple snippets.",
+    "description": "Comprehensive Express.js snippets for JavaScript and TypeScript with full type support. Includes 50+ snippets for routing, middleware, authentication, database integration, testing, and more.",
     "author": {
         "name": "Ashutosh Kumar"
     },
@@ -32,15 +32,38 @@
     },
     "license": "MIT",
     "repository": {
-        "url": "https://ww.github.com/raxraj/simple-express-snippets"
+        "url": "https://www.github.com/raxraj/simple-express-snippets"
     },
     "scripts": {
         "postinstall": "node ./node_modules/vscode/bin/install"
     },
     "keywords": [
-        "simple express snippets",
+        "express",
         "express snippets",
-        "simple express",
-        "emmet express"
+        "javascript",
+        "typescript",
+        "nodejs",
+        "web development",
+        "server",
+        "middleware",
+        "routing",
+        "authentication",
+        "jwt",
+        "cors",
+        "helmet",
+        "validation",
+        "database",
+        "mongodb",
+        "testing",
+        "jest",
+        "supertest",
+        "async",
+        "error handling",
+        "file upload",
+        "sessions",
+        "cookies",
+        "api",
+        "rest api",
+        "backend"
     ]
 }
