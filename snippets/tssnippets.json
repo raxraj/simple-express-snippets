@@ -3,13 +3,59 @@
 		"scope": "typescript",
 		"prefix": "ess",
 		"body": [
-			"import express from 'express';",
+			"import express, { Application } from 'express';",
 			"",
-			"const ${1:app} = express()",
+			"const ${1:app}: Application = express();",
+			"const PORT: number = Number(process.env.PORT) || ${2:3000};",
 			"",
-			"${1:app}.listen(${2:3000}, () => {\n\tconsole.log(`Server is Listening on ${2:3000}`)\n})"
+			"${1:app}.listen(PORT, () => {",
+			"\tconsole.log(`Server is listening on port $${PORT}`);",
+			"});"
 		],
-		"description": "Setup a simple Express Server"
+		"description": "Setup a simple Express Server with TypeScript types"
+	},
+	"Express complete server setup": {
+		"scope": "typescript",
+		"prefix": "essfull",
+		"body": [
+			"import express, { Application, Request, Response, NextFunction } from 'express';",
+			"import cors from 'cors';",
+			"import helmet from 'helmet';",
+			"import morgan from 'morgan';",
+			"",
+			"const ${1:app}: Application = express();",
+			"const PORT: number = Number(process.env.PORT) || ${2:3000};",
+			"",
+			"// Security middleware",
+			"${1:app}.use(helmet());",
+			"${1:app}.use(cors());",
+			"",
+			"// Logging middleware",
+			"${1:app}.use(morgan('combined'));",
+			"",
+			"// Body parsing middleware",
+			"${1:app}.use(express.json());",
+			"${1:app}.use(express.urlencoded({ extended: true }));",
+			"",
+			"// Static files",
+			"${1:app}.use(express.static('public'));",
+			"",
+			"// Routes",
+			"${1:app}.get('/', (req: Request, res: Response) => {",
+			"\tres.json({ message: 'Server is running!' });",
+			"});",
+			"",
+			"// Error handling middleware",
+			"${1:app}.use((err: Error, req: Request, res: Response, next: NextFunction) => {",
+			"\tconsole.error(err.stack);",
+			"\tres.status(500).json({ error: 'Something went wrong!' });",
+			"});",
+			"",
+			"${1:app}.listen(PORT, () => {",
+			"\tconsole.log(`Server is running on port $${PORT}`);",
+			"});"
+		],
+		"description": "Complete Express server setup with TypeScript types and middleware"
 	},
 	"Express URL encoded": {
 		"scope": "typescript",
@@ -20,48 +66,551 @@
 	"Express set to use json": {
 		"scope": "typescript",
 		"prefix": "ejson",
-		"body": "${1:app}.use(express.json())",
+		"body": "${1:app}.use(express.json());",
 		"description": "Set Express to use json parsing for request.body"
 	},
 	"Express set the static folder": {
 		"scope": "typescript",
 		"prefix": "estatic",
-		"body": "${1:app}.use(express.static('${2:public}'))",
+		"body": "${1:app}.use(express.static('${2:public}'));",
 		"description": "Set Express to use given folder name as static"
 	},
 	"Express simple router": {
 		"scope": "typescript",
 		"prefix": "esrouter",
 		"body": [
-			"import express from 'express'",
-			"const router = express.Router()",
+			"import express, { Router } from 'express';",
+			"",
+			"const router: Router = express.Router();",
+			"",
 			"$0",
-			"export default router"
+			"",
+			"export default router;"
 		],
-		"description": "Create a simple router object."
+		"description": "Create a simple router object with TypeScript types."
 	},
 	"Express router get request": {
 		"scope": "typescript",
 		"prefix": "ergr",
-		"body": "router.get('$2', (request,response) => {\n\t $0\n})",
-		"description": "A router based get route"
+		"body": "router.get('${1:/:id}', (req: Request, res: Response) => {\n\t$0\n});",
+		"description": "A router based get route with TypeScript types"
 	},
 	"Express router post request": {
 		"scope": "typescript",
 		"prefix": "erpr",
-		"body": "router.post('$2', (request,response) => {\n\t $0\n})",
-		"description": "A router based post route"
+		"body": "router.post('${1:/}', (req: Request, res: Response) => {\n\t$0\n});",
+		"description": "A router based post route with TypeScript types"
+	},
+	"Express router put request": {
+		"scope": "typescript",
+		"prefix": "erput",
+		"body": "router.put('${1:/:id}', (req: Request, res: Response) => {\n\t$0\n});",
+		"description": "A router based put route with TypeScript types"
+	},
+	"Express router delete request": {
+		"scope": "typescript",
+		"prefix": "erdel",
+		"body": "router.delete('${1:/:id}', (req: Request, res: Response) => {\n\t$0\n});",
+		"description": "A router based delete route with TypeScript types"
+	},
+	"Express router patch request": {
+		"scope": "typescript",
+		"prefix": "erpatch",
+		"body": "router.patch('${1:/:id}', (req: Request, res: Response) => {\n\t$0\n});",
+		"description": "A router based patch route with TypeScript types"
 	},
 	"Express simple get request": {
 		"scope": "typescript",
 		"prefix": "esgr",
-		"body": "${1:app}.get('/$2', (request, response) => {\n\t $0\n})",
-		"description": "A simple get route for Express"
+		"body": "${1:app}.get('/${2:route}', (req: Request, res: Response) => {\n\t$0\n});",
+		"description": "A simple get route for Express with TypeScript types"
 	},
 	"Express simple Post request": {
 		"scope": "typescript",
 		"prefix": "espr",
-		"body": "${1:app}.post('/$2', (request, response) => {\n\t $0\n})",
-		"description": "A simple post route for Express"
+		"body": "${1:app}.post('/${2:route}', (req: Request, res: Response) => {\n\t$0\n});",
+		"description": "A simple post route for Express with TypeScript types"
+	},
+	"Express simple put request": {
+		"scope": "typescript",
+		"prefix": "esput",
+		"body": "${1:app}.put('/${2:route}', (req: Request, res: Response) => {\n\t$0\n});",
+		"description": "A simple put route for Express with TypeScript types"
+	},
+	"Express simple delete request": {
+		"scope": "typescript",
+		"prefix": "esdel",
+		"body": "${1:app}.delete('/${2:route}', (req: Request, res: Response) => {\n\t$0\n});",
+		"description": "A simple delete route for Express with TypeScript types"
+	},
+	"Express simple patch request": {
+		"scope": "typescript",
+		"prefix": "espatch",
+		"body": "${1:app}.patch('/${2:route}', (req: Request, res: Response) => {\n\t$0\n});",
+		"description": "A simple patch route for Express with TypeScript types"
+	},
+	"Express middleware function": {
+		"scope": "typescript",
+		"prefix": "emiddleware",
+		"body": [
+			"import { Request, Response, NextFunction } from 'express';",
+			"",
+			"const ${1:middlewareName} = (req: Request, res: Response, next: NextFunction): void => {",
+			"\t$0",
+			"\tnext();",
+			"};"
+		],
+		"description": "Create Express middleware function with TypeScript types"
+	},
+	"Express async middleware": {
+		"scope": "typescript",
+		"prefix": "easyncmw",
+		"body": [
+			"import { Request, Response, NextFunction } from 'express';",
+			"",
+			"const ${1:asyncMiddleware} = async (req: Request, res: Response, next: NextFunction): Promise<void> => {",
+			"\ttry {",
+			"\t\t$0",
+			"\t\tnext();",
+			"\t} catch (error) {",
+			"\t\tnext(error);",
+			"\t}",
+			"};"
+		],
+		"description": "Create async Express middleware function with TypeScript types"
+	},
+	"Express error handler": {
+		"scope": "typescript",
+		"prefix": "eerror",
+		"body": [
+			"import { Request, Response, NextFunction } from 'express';",
+			"",
+			"${1:app}.use((err: Error, req: Request, res: Response, next: NextFunction): void => {",
+			"\tconsole.error(err.stack);",
+			"\tres.status(${2:500}).json({",
+			"\t\terror: '${3:Internal Server Error}',",
+			"\t\tmessage: err.message",
+			"\t});",
+			"});"
+		],
+		"description": "Express error handling middleware with TypeScript types"
+	},
+	"Express 404 handler": {
+		"scope": "typescript",
+		"prefix": "e404",
+		"body": [
+			"import { Request, Response } from 'express';",
+			"",
+			"${1:app}.use('*', (req: Request, res: Response): void => {",
+			"\tres.status(404).json({",
+			"\t\terror: 'Route not found',",
+			"\t\tpath: req.originalUrl",
+			"\t});",
+			"});"
+		],
+		"description": "Express 404 error handler with TypeScript types"
+	},
+	"Express CORS setup": {
+		"scope": "typescript",
+		"prefix": "ecors",
+		"body": [
+			"import cors, { CorsOptions } from 'cors';",
+			"",
+			"const corsOptions: CorsOptions = {",
+			"\torigin: ['${1:http://localhost:3000}'],",
+			"\tcredentials: true,",
+			"\toptionsSuccessStatus: 200",
+			"};",
+			"",
+			"${2:app}.use(cors(corsOptions));"
+		],
+		"description": "Express CORS configuration with TypeScript types"
+	},
+	"Express rate limiting": {
+		"scope": "typescript",
+		"prefix": "eratelimit",
+		"body": [
+			"import rateLimit from 'express-rate-limit';",
+			"",
+			"const limiter = rateLimit({",
+			"\twindowMs: ${1:15} * 60 * 1000, // ${1:15} minutes",
+			"\tmax: ${2:100}, // limit each IP to ${2:100} requests per windowMs",
+			"\tmessage: '${3:Too many requests from this IP}'",
+			"});",
+			"",
+			"${4:app}.use(limiter);"
+		],
+		"description": "Express rate limiting setup with TypeScript types"
+	},
+	"Express session setup": {
+		"scope": "typescript",
+		"prefix": "esession",
+		"body": [
+			"import session, { SessionOptions } from 'express-session';",
+			"",
+			"const sessionOptions: SessionOptions = {",
+			"\tsecret: '${2:your-secret-key}',",
+			"\tresave: false,",
+			"\tsaveUninitialized: false,",
+			"\tcookie: {",
+			"\t\tsecure: ${3:false}, // set to true if using https",
+			"\t\tmaxAge: ${4:24} * 60 * 60 * 1000 // ${4:24} hours",
+			"\t}",
+			"};",
+			"",
+			"${1:app}.use(session(sessionOptions));"
+		],
+		"description": "Express session configuration with TypeScript types"
+	},
+	"Express cookie parser": {
+		"scope": "typescript",
+		"prefix": "ecookie",
+		"body": [
+			"import cookieParser from 'cookie-parser';",
+			"",
+			"${1:app}.use(cookieParser('${2:your-secret}'));"
+		],
+		"description": "Express cookie parser setup with TypeScript"
+	},
+	"Express helmet security": {
+		"scope": "typescript",
+		"prefix": "ehelmet",
+		"body": [
+			"import helmet from 'helmet';",
+			"",
+			"${1:app}.use(helmet({",
+			"\tcontentSecurityPolicy: {",
+			"\t\tdirectives: {",
+			"\t\t\tdefaultSrc: [\"'self'\"],",
+			"\t\t\tstyleSrc: [\"'self'\", \"'unsafe-inline'\"]",
+			"\t\t}",
+			"\t}",
+			"}));"
+		],
+		"description": "Express Helmet security middleware with TypeScript"
+	},
+	"Express morgan logging": {
+		"scope": "typescript",
+		"prefix": "emorgan",
+		"body": [
+			"import morgan from 'morgan';",
+			"",
+			"${1:app}.use(morgan('${2:combined}'));"
+		],
+		"description": "Express Morgan logging middleware with TypeScript"
+	},
+	"Express JWT middleware": {
+		"scope": "typescript",
+		"prefix": "ejwt",
+		"body": [
+			"import jwt from 'jsonwebtoken';",
+			"import { Request, Response, NextFunction } from 'express';",
+			"",
+			"interface AuthenticatedRequest extends Request {",
+			"\tuser?: any;",
+			"}",
+			"",
+			"const authenticateToken = (req: AuthenticatedRequest, res: Response, next: NextFunction): void => {",
+			"\tconst authHeader = req.headers['authorization'];",
+			"\tconst token = authHeader && authHeader.split(' ')[1];",
+			"",
+			"\tif (!token) {",
+			"\t\tres.status(401).json({ error: 'Access token required' });",
+			"\t\treturn;",
+			"\t}",
+			"",
+			"\tjwt.verify(token, process.env.JWT_SECRET as string, (err, user) => {",
+			"\t\tif (err) {",
+			"\t\t\tres.status(403).json({ error: 'Invalid token' });",
+			"\t\t\treturn;",
+			"\t\t}",
+			"\t\treq.user = user;",
+			"\t\tnext();",
+			"\t});",
+			"};"
+		],
+		"description": "Express JWT authentication middleware with TypeScript types"
+	},
+	"Express JWT generate token": {
+		"scope": "typescript",
+		"prefix": "ejwtgen",
+		"body": [
+			"import jwt from 'jsonwebtoken';",
+			"",
+			"const generateToken = (payload: object): string => {",
+			"\treturn jwt.sign(payload, process.env.JWT_SECRET as string, {",
+			"\t\texpiresIn: '${1:24h}'",
+			"\t});",
+			"};"
+		],
+		"description": "Generate JWT token function with TypeScript types"
+	},
+	"Express validation middleware": {
+		"scope": "typescript",
+		"prefix": "evalidate",
+		"body": [
+			"import { body, validationResult } from 'express-validator';",
+			"import { Request, Response, NextFunction } from 'express';",
+			"",
+			"const validate = [",
+			"\tbody('${1:field}').notEmpty().withMessage('${1:Field} is required'),",
+			"\tbody('${2:email}').isEmail().withMessage('Valid email is required'),",
+			"\t(req: Request, res: Response, next: NextFunction): void => {",
+			"\t\tconst errors = validationResult(req);",
+			"\t\tif (!errors.isEmpty()) {",
+			"\t\t\tres.status(400).json({ errors: errors.array() });",
+			"\t\t\treturn;",
+			"\t\t}",
+			"\t\tnext();",
+			"\t}",
+			"];"
+		],
+		"description": "Express validation middleware with express-validator and TypeScript types"
+	},
+	"Express async route handler": {
+		"scope": "typescript",
+		"prefix": "easync",
+		"body": [
+			"import { Request, Response, NextFunction } from 'express';",
+			"",
+			"${1:app}.${2:get}('/${3:route}', async (req: Request, res: Response, next: NextFunction): Promise<void> => {",
+			"\ttry {",
+			"\t\t$0",
+			"\t\tres.json({ success: true });",
+			"\t} catch (error) {",
+			"\t\tnext(error);",
+			"\t}",
+			"});"
+		],
+		"description": "Express async route handler with error handling and TypeScript types"
+	},
+	"Express response JSON": {
+		"scope": "typescript",
+		"prefix": "eresj",
+		"body": "res.status(${1:200}).json({ ${2:message: 'Success'} });",
+		"description": "Express JSON response with TypeScript"
+	},
+	"Express response with status": {
+		"scope": "typescript",
+		"prefix": "eresstat",
+		"body": "res.status(${1:200}).send('${2:OK}');",
+		"description": "Express response with status and TypeScript"
+	},
+	"Express redirect": {
+		"scope": "typescript",
+		"prefix": "eredirect",
+		"body": "res.redirect(${1:301}, '${2:/new-path}');",
+		"description": "Express redirect response with TypeScript"
+	},
+	"Express file upload setup": {
+		"scope": "typescript",
+		"prefix": "efileupload",
+		"body": [
+			"import multer, { StorageEngine } from 'multer';",
+			"",
+			"const storage: StorageEngine = multer.diskStorage({",
+			"\tdestination: (req, file, cb) => {",
+			"\t\tcb(null, '${1:uploads/}');",
+			"\t},",
+			"\tfilename: (req, file, cb) => {",
+			"\t\tcb(null, Date.now() + '-' + file.originalname);",
+			"\t}",
+			"});",
+			"",
+			"const upload = multer({ storage });"
+		],
+		"description": "Express file upload with Multer and TypeScript types"
+	},
+	"Express database connection": {
+		"scope": "typescript",
+		"prefix": "edbconnect",
+		"body": [
+			"import mongoose from 'mongoose';",
+			"",
+			"const connectDB = async (): Promise<void> => {",
+			"\ttry {",
+			"\t\tawait mongoose.connect(process.env.MONGODB_URI as string, {",
+			"\t\t\tuseNewUrlParser: true,",
+			"\t\t\tuseUnifiedTopology: true",
+			"\t\t});",
+			"\t\tconsole.log('MongoDB connected successfully');",
+			"\t} catch (error) {",
+			"\t\tconsole.error('Database connection failed:', error);",
+			"\t\tprocess.exit(1);",
+			"\t}",
+			"};",
+			"",
+			"connectDB();"
+		],
+		"description": "Express MongoDB connection setup with TypeScript types"
+	},
+	"Express route with params": {
+		"scope": "typescript",
+		"prefix": "eparams",
+		"body": [
+			"import { Request, Response } from 'express';",
+			"",
+			"interface ${1:User}Params {",
+			"\t${3:id}: string;",
+			"}",
+			"",
+			"${4:app}.get('/${2:users}/:${3:id}', (req: Request<${1:User}Params>, res: Response): void => {",
+			"\tconst { ${3:id} } = req.params;",
+			"\t$0",
+			"\tres.json({ ${3:id} });",
+			"});"
+		],
+		"description": "Express route with typed parameters"
+	},
+	"Express route with query": {
+		"scope": "typescript",
+		"prefix": "equery",
+		"body": [
+			"import { Request, Response } from 'express';",
+			"",
+			"interface ${1:Search}Query {",
+			"\t${3:q}?: string;",
+			"\t${4:limit}?: string;",
+			"}",
+			"",
+			"${5:app}.get('/${2:search}', (req: Request<{}, {}, {}, ${1:Search}Query>, res: Response): void => {",
+			"\tconst { ${3:q}, ${4:limit} = '10' } = req.query;",
+			"\t$0",
+			"\tres.json({ query: ${3:q}, limit: parseInt(${4:limit}) });",
+			"});"
+		],
+		"description": "Express route with typed query parameters"
+	},
+	"Express test setup": {
+		"scope": "typescript",
+		"prefix": "etest",
+		"body": [
+			"import request from 'supertest';",
+			"import app from '../app';",
+			"",
+			"describe('${1:API Tests}', () => {",
+			"\ttest('${2:GET /}', async () => {",
+			"\t\tconst response = await request(app)",
+			"\t\t\t.get('${3:/}')",
+			"\t\t\t.expect(${4:200});",
+			"\t\t",
+			"\t\texpect(response.body).toHaveProperty('${5:message}');",
+			"\t});",
+			"});"
+		],
+		"description": "Express test setup with Jest, Supertest and TypeScript"
+	},
+	"Express controller function": {
+		"scope": "typescript",
+		"prefix": "econtroller",
+		"body": [
+			"import { Request, Response, NextFunction } from 'express';",
+			"",
+			"interface ${1:Controller} {",
+			"\t${2:getAll}: (req: Request, res: Response, next: NextFunction) => Promise<void>;",
+			"\t${3:getById}: (req: Request, res: Response, next: NextFunction) => Promise<void>;",
+			"}",
+			"",
+			"const ${4:controllerName}: ${1:Controller} = {",
+			"\t${2:getAll}: async (req: Request, res: Response, next: NextFunction): Promise<void> => {",
+			"\t\ttry {",
+			"\t\t\t$0",
+			"\t\t\tres.json({ success: true, data: [] });",
+			"\t\t} catch (error) {",
+			"\t\t\tnext(error);",
+			"\t\t}",
+			"\t},",
+			"",
+			"\t${3:getById}: async (req: Request, res: Response, next: NextFunction): Promise<void> => {",
+			"\t\ttry {",
+			"\t\t\tconst { id } = req.params;",
+			"\t\t\tres.json({ success: true, data: { id } });",
+			"\t\t} catch (error) {",
+			"\t\t\tnext(error);",
+			"\t\t}",
+			"\t}",
+			"};",
+			"",
+			"export default ${4:controllerName};"
+		],
+		"description": "Express controller with multiple methods and TypeScript types"
+	},
+	"Express interface definition": {
+		"scope": "typescript",
+		"prefix": "einterface",
+		"body": [
+			"interface ${1:User} {",
+			"\tid: string;",
+			"\tname: string;",
+			"\temail: string;",
+			"\tcreatedAt: Date;",
+			"\tupdatedAt: Date;",
+			"}"
+		],
+		"description": "TypeScript interface for Express data models"
+	},
+	"Express custom request interface": {
+		"scope": "typescript",
+		"prefix": "ecustomreq",
+		"body": [
+			"import { Request } from 'express';",
+			"",
+			"interface Custom${1:Auth}Request extends Request {",
+			"\tuser?: {",
+			"\t\tid: string;",
+			"\t\temail: string;",
+			"\t\trole: string;",
+			"\t};",
+			"}"
+		],
+		"description": "Custom request interface extending Express Request"
+	},
+	"Express environment variables type": {
+		"scope": "typescript",
+		"prefix": "eenvtypes",
+		"body": [
+			"declare global {",
+			"\tnamespace NodeJS {",
+			"\t\tinterface ProcessEnv {",
+			"\t\t\tNODE_ENV: 'development' | 'production' | 'test';",
+			"\t\t\tPORT: string;",
+			"\t\t\tDATABASE_URL: string;",
+			"\t\t\tJWT_SECRET: string;",
+			"\t\t\t${1:API_KEY}: string;",
+			"\t\t}",
+			"\t}",
+			"}",
+			"",
+			"export {};"
+		],
+		"description": "TypeScript environment variables type definitions"
+	},
+	"Express API response type": {
+		"scope": "typescript",
+		"prefix": "eapiresponse",
+		"body": [
+			"interface ApiResponse<T = any> {",
+			"\tsuccess: boolean;",
+			"\tdata?: T;",
+			"\terror?: string;",
+			"\tmessage?: string;",
+			"\tstatusCode: number;",
+			"}"
+		],
+		"description": "Generic API response type for Express endpoints"
+	},
+	"Express typed route handler": {
+		"scope": "typescript",
+		"prefix": "etypedroute",
+		"body": [
+			"import { Request, Response } from 'express';",
+			"",
+			"type ${1:HandlerName} = (req: Request<${2:ParamsType}, ${3:ResponseType}, ${4:BodyType}, ${5:QueryType}>, res: Response<${3:ResponseType}>) => Promise<void> | void;",
+			"",
+			"const ${6:handlerFunction}: ${1:HandlerName} = async (req, res) => {",
+			"\t$0",
+			"};"
+		],
+		"description": "Fully typed Express route handler"
 	}
 }
